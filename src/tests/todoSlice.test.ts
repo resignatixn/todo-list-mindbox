@@ -4,7 +4,7 @@ import todosReducer, {
   removeTodo,
   setFilter,
   clearCompleted,
-} from './todoSlice'
+} from '../store/slices/todoSlice'
 
 import { Filter } from '@/types'
 

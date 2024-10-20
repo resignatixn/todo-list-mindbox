@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Label } from '@/components/ui/label'
 
-import { toggleTodo, removeTodo } from '@/store/todoSlice'
+import { toggleTodo, removeTodo } from '@/store/slices/todoSlice'
 
 import { Todo } from '@/types'
 
@@ -25,24 +25,28 @@ const TodoItem: React.FC<TodoItemProps> = React.memo(({ todo }) => {
   }, [dispatch, todo.id])
 
   return (
-    <div className="flex justify-between items-center p-2 border-b">
-      <div className="">
+    <li className="flex justify-between items-center p-2 border-b">
+      <Label
+        htmlFor={`${todo.id}`}
+        className="flex w-full flex-grow cursor-pointer"
+      >
         <Checkbox
           id={`${todo.id}`}
           checked={todo.completed}
           onCheckedChange={handleToggle}
         />
-        <Label
-          htmlFor={`${todo.id}`}
-          className={`ml-2 ${todo.completed ? 'line-through' : ''}`}
+        <span
+          className={`ml-2 ${
+            todo.completed ? 'line-through' : ''
+          } whitespace-normal`}
         >
           {todo.text}
-        </Label>
-      </div>
+        </span>
+      </Label>
       <Button variant={'destructive'} onClick={handleRemove}>
         Remove
       </Button>
-    </div>
+    </li>
   )
 })
 
