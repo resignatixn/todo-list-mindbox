@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { useDispatch } from 'react-redux'
 
 import { Button } from '@/components/ui/button'
@@ -13,16 +13,16 @@ interface TodoItemProps {
   todo: Todo
 }
 
-const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
+const TodoItem: React.FC<TodoItemProps> = React.memo(({ todo }) => {
   const dispatch = useDispatch()
 
-  const handleToggle = () => {
+  const handleToggle = useCallback(() => {
     dispatch(toggleTodo(todo.id))
-  }
+  }, [dispatch, todo.id])
 
-  const handleRemove = () => {
+  const handleRemove = useCallback(() => {
     dispatch(removeTodo(todo.id))
-  }
+  }, [dispatch, todo.id])
 
   return (
     <div className="flex justify-between items-center p-2 border-b">
@@ -44,6 +44,6 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
       </Button>
     </div>
   )
-}
+})
 
 export default TodoItem
